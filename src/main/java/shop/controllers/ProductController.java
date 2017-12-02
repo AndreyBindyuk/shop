@@ -21,9 +21,9 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
-    public WriteResult deleteProduct(@RequestBody Product product){
-        return productService.deleteProduct(product);
+    @RequestMapping(value = "/deleteProductById", method = RequestMethod.DELETE)
+    public Product deleteProduct(@RequestParam("productId") String productId){
+        return productService.deleteProduct(productId);
     }
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)

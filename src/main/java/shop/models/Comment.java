@@ -1,28 +1,19 @@
 package shop.models;
 
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
-
-
-@Document(collection = "product")
+@Document(collection = "comment")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
-public class Product {
+
+public class Comment {
     @Id
     private String id;
-
-    @NotNull(message = "title must not be null")
-    private String title;
-
-    @NotNull(message = "description must not be null")
     private String description;
-
-    private double price;
+    private String userId;
 
     public String getId() {
         return id;
@@ -30,14 +21,6 @@ public class Product {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
@@ -48,11 +31,11 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -2,7 +2,6 @@ package shop.services.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.WriteResult;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,22 +29,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.insert(product) != null;
     }
 
-    public WriteResult deleteProduct(Product product) {
-        ObjectMapper mapper = new ObjectMapper();
-        Criteria criteria = new Criteria();
-        try {
-            JSONObject jsonpObject = new JSONObject(mapper.writeValueAsString(product));
-            Iterator<String> jsonKeys = jsonpObject.keys();
-            while (jsonKeys.hasNext()) {
-                String key = jsonKeys.next();
-                Object value = jsonpObject.get(key);
-                criteria.and(key).is(value);
-            }
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return mongoTemplate.remove(new Query(criteria),Product.class);
+    public Product deleteProduct(String productId) {
+        return mongoTemplate.findAndRemove(new Query(new Criteria(productId)), Product.class);
     }
 
     public List<Product> findAllProducts() {
